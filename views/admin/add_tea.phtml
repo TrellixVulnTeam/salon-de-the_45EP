@@ -1,0 +1,34 @@
+<header>
+    <h2>Ajouter un nouveau thé</h2>
+</header>
+<section>
+    <form enctype="multipart/form-data" action="<?= buildUrl('/admin/tea/new'); ?>" method="post">
+        <?php if (isset($error)) : ?>
+            <p class="error"><?= $error; ?></p>
+        <?php endif; ?>
+        <fieldset>
+            <div>
+                <label for="name">Titre</label>
+                <input type="text" id="name" name="name">
+            </div>
+
+            <input type="file" name="fileToUpload" id="fileToUpload">
+            <div>
+                <label for="description">Contenu</label>
+                <textarea id="description" name="description"></textarea>
+            </div>
+            <div>
+                <label for="category">Catégorie</label>
+                <select name="category">
+                    <?php foreach ($categories as $category) : ?>
+                        <option value="<?= $category['id']; ?>"><?= $category['color']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+
+        </fieldset>
+        <input type="submit" value="Enregistrer">
+    </form>
+
+</section>

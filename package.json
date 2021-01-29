@@ -1,0 +1,16 @@
+{
+  "name": "sass-tea",
+  "version": "1.0.0",
+  "description": "Website with back office for a tea room company",
+  "main": "index.js",
+  "scripts": {
+    "watch:sass": "node-sass  www/sass/main.sass  www/css/style.css -w",
+    "devserver": "live-server",
+    "start": "npm-run-all --parallel devserver watch:sass"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "node-sass": "^5.0.0"
+  }
+}

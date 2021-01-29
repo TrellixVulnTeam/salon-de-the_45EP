@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <base href="<?= BASE_URL; ?>">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $view; ?></title>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+
+    <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
+    <!--CHARGEMENT police-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Yellowtail&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bentham|Playfair+Display|Raleway:400,500|Suranna|Trocchi" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sofia&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <!--aos -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
+
+<body>
+
+    <?php if ($view !== "login" && $view !== "admin/admin" && $view !== "admin/add_tea") : ?>
+        <!--NAVBAR FIXE GRAND ÉCRANS-->
+        <div class="fixed-navbar">
+            <ul class="fixed-navbar__list">
+
+                <li class="fixed-navbar__item"><a class="fixed-navbar__link" href="<?= buildUrl('/actu'); ?>">Actualités</a></li>
+                <li class="fixed-navbar__item"><a class="fixed-navbar__link" href="<?= buildUrl('/the'); ?>"><span>Infusions</span><span>Thé</span></a></li>
+                <li class="fixed-navbar__item fixed-navbar__item--active"><a class="fixed-navbar__link" href="<?= buildUrl('/'); ?>">
+                        <div class="fixed-navbar__logo-box">
+                            <img src="<?= asset('img/mellie.png') ?>" alt="logo" class="fixed-navbar__logo">
+                        </div>
+                    </a></li>
+                <li class="fixed-navbar__item"><a class="fixed-navbar__link" href="<?= buildUrl('/jeu'); ?>">jeu</a></li>
+                <li class="fixed-navbar__item"><a class="fixed-navbar__link" href="<?= buildUrl('/contact'); ?>">Contact</a></li>
+            </ul>
+
+        </div>
+        <!--MENU BURGER-->
+        <div class="navigation">
+
+            <input type="checkbox" class="navigation__checkbox" id="navi-toggle">
+            <label for="navi-toggle" class="navigation__button">
+                <span class="navigation__icon">&nbsp;</span>
+            </label>
+            <div class="navigation__background">&nbsp;</div>
+            <nav class="navigation__nav">
+                <ul class="navigation__list">
+                    <li class="navigation__item"><a href="<?= buildUrl('/'); ?>" class="navigation__link">Chez Mellie</a></li>
+                    <li class="navigation__item"><a href="<?= buildUrl('/actu'); ?>" class="navigation__link">Actualités</a></li>
+                    <li class="navigation__item"><a href="<?= buildUrl('/the'); ?>" class="navigation__link">Infusions - Thé</a></li>
+                    <li class="navigation__item"><a href="<?= buildUrl('/jeu'); ?>" class="navigation__link">Grenier aux trolls</a></li>
+                    <li class="navigation__item"><a href="<?= buildUrl('/contact'); ?>" class="navigation__link">Contact</a></li>
+
+
+                </ul>
+            </nav>
+        </div>
+
+        <header class="header">
+            <!--
+            <div class="header__logo-box">
+                <img src="img/mellie.png" alt="logo" class="header__logo">
+            </div>
+            -->
+            <div class="header__text-box" id="top-img">
+
+                <h1 class="main-header">
+                    <span class="main-header--first">Chez Mellie</span>
+                    <span class="main-header--sec"><?php echo $view; ?></span>
+                </h1>
+            </div>
+        </header>
+
+    <?php endif ?>
+
+    <main>
+        <?php include VIEWS_DIR . '/' . $view . '.phtml'; ?>
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <?php if ($view !== "login" && $view !== "admin/admin"  && $view !== "admin/add_tea") : ?>
+        <footer class="footer">
+            <h4 class="heading-secondary">Chez Mellie</h4>
+            <section class="footer__coordonate">
+                <h4>Coordonnées</h4>
+
+                <p>Mauriac<br>
+                    26 rue Charles Périé<br>
+                    06 12 34 56 78</p>
+                <p></p>
+
+            </section>
+            <section class="footer__logo">
+
+                <a href="https://www.tripadvisor.fr/Restaurant_Review-g1639465-d17728791-Reviews-Chez_Mellie-Mauriac_Cantal_Auvergne_Rhone_Alpes.html" target="_blank"> <img src="https://img.icons8.com/doodle/48/000000/tripadvisor.png" /> </a>
+                <a href="https://www.facebook.com/chezmellie/" target="_blank"> <img src="https://img.icons8.com/fluent/48/000000/facebook-new.png" /> </a>
+                <a href="https://www.instagram.com/chezmellie/" target="_blank"> <img src="https://img.icons8.com/fluent/48/000000/instagram-new.png" /> </a>
+            </section>
+            <section class="footer__contact">
+                <h4>Nous contacter</h4>
+                <a href="<?= buildUrl('/contact'); ?>">
+                    <img src="https://img.icons8.com/fluent/48/000000/filled-message.png" />
+                </a>
+            </section>
+
+
+        </footer>
+    <?php endif ?>
+    
+    <div id="alert-frame"></div>
+
+    <!--JAVASCRIPT -->
+    <script src="<?= asset('js/navbar-scroll.js') ?>"></script>
+    <!--TRIE DES NEWSLETTER -->
+    <script src="<?= asset('js/news-filter.js') ?>"> </script>
+    <!--TRIE DES THÉS -->
+    <script src="<?= asset('js/tea-filter.js') ?>"></script>
+    <!--AJAX RESERVATION THÉ-->
+    <script src="<?= asset('js/ajax-tea.js') ?>"></script>
+    <!--AJAX FORMULAIRE CONTACT-->
+    <script src="<?= asset('js/contact.js') ?>"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- <script src="js/index.js" type="module"></script> -->
+    <script>
+        AOS.init();
+    </script>
+</body>
+
+</html>

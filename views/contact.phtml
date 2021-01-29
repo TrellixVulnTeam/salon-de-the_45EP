@@ -1,0 +1,66 @@
+<!--ONGLET CONTACT -->
+<div class="section-contact">
+
+  <!-- HORAIRES-->
+  <div class="contact-schedule">
+    <svg class="section-contact__svg">
+      <use xlink:href="<?= asset('img/sprite.svg#icon-heart') ?>"></use>
+    </svg>
+    <h3 class="heading-tertiary">Horaires</h3>
+    <ul class="contact-schedule__list">
+      <li>Semaine: 8h - 18h</li>
+      <li>Samedi: 8h -12h</li>
+      <li>Dimanche: FERME</li>
+    </ul>
+  </div>
+
+  <!-- FORMULAIRE DE CONTACT-->
+  <form data-aos="fade-down" class="contact-form" id="contact-form" action="<?= buildUrl('/ajax/contact'); ?>" method="post">
+    <h3 class="heading-secondary">Contactez-nous</h3>
+    <aside class="alert d-none">
+    </aside>
+    <span id="txtHint"></span>
+
+
+    <div class="form-group">
+      <label for="email" class="contact-form__label">Email</label>
+      <input type="email" class="contact-form__input" id="email" name="email" placeholder="Votre e-mail">
+    </div>
+
+    <div class="form-group named">
+      <label for="name"> ne pas remplir</label>
+      <input type="text" name="name" id="name" />
+    </div>
+
+
+    <div class="form-group">
+      <label for="message" class="contact-form__label">Message</label>
+      <textarea name="message" id="message" class="contact-form__input" placeholder="Votre message"></textarea>
+    </div>
+    <div class="form-group">
+
+      <button class="contact-form__button">Envoyer</button>
+    </div>
+
+  </form>
+
+
+  <!-- ADDRESSE-->
+  <div class="contact-adress">
+    <svg class="section-contact__svg">
+
+      <use xlink:href="<?= asset('img/sprite.svg#icon-map') ?>"></use>
+
+    </svg>
+    <h3 class="heading-tertiary">Adresse</h3>
+    <div class="contact-adress__text">
+      <p>Mauriac</p>
+      <p>26 rue Charles Périé</p>
+    </div>
+  </div>
+</div>
+
+<!-- GOOGLE MAP-->
+<iframe id="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2810.353700754149!2d2.3353125158296315!3d45.220412357697704!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f819c1f329507b%3A0xc245a48c8fb7e51d!2s26%20Avenue%20Charles%20Perie%2C%2015200%20Mauriac!5e0!3m2!1sfr!2sfr!4v1611906847225!5m2!1sfr!2sfr" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+
+<!-- FIN ONGLET CONTACT-->
