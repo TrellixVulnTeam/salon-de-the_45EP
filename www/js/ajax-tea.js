@@ -10,23 +10,20 @@ $(document).ready(function () {
     $(function () {
         $('.popup-form[id^="form"]').submit(function (event) {
             event.preventDefault();
-
-            let $aside = $('#contact-form aside');
+            //si le champs caché est vide on envoie le formulaire
             let honeypot = $('input[name=name]').val();
             if (honeypot === "") {
                 // Envoi de la requête XHR
                 $.post($(this).attr('action'), $(this).serializeArray(), function (data) {
 
                     // Notifications
-                    if (data.result) {
-                        document.getElementById("alert-frame").innerHTML = "good";
-                        //$aside.addClass('alert-success').text('votre demande de réservation a bien été envoyée !').removeClass('d-none');
+                    if (data.send) {
+                        $('#alert-frame').text('Votre demande de réservation a bien été envoyée !').fadeIn().delay(2000).fadeOut();
                     } else {
-
-                        document.getElementById("alert-frame").innerHTML = "echec";
-                        //$aside.addClass('alert-danger').text('Erreur lors de l\'envoi de la réservation !').removeClass('d-none');
+                        $('#alert-frame').text('Échec lors de la transmission de la réservation').fadeIn().delay(2000).fadeOut();
                     }
                 });
+                //si le champs caché est rempli on envoie pas le formulaire
             } else {
                 document.getElementById("alert-frame").innerHTML = "piège";
             }
