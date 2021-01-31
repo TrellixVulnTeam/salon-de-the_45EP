@@ -31,6 +31,19 @@ class NewsModel extends Model
     // Récupère 1 article
 
 
+    function get_billets($offset, $limit)
+
+    {
+        global $bdd;
+        $offset = (int) $offset;
+        $limit = (int) $limit;
+
+        $sql = $bdd->prepare('SELECT id, titre, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM billets ORDER BY date_creation DESC LIMIT :offset, :limit');
+
+        return self::$database->fetchAllRows($sql);
+    }
+
+
 
     function getOnePost(int $postId): array
     {
