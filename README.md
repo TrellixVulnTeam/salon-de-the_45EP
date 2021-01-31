@@ -1,9 +1,14 @@
 # mellie-salon
 
-Website with back office for a tea room company
 
+1.
 git clone
-composer install
-rename yourConfig.php in config.php, uncomment data base area and fill with your data 
 
-UNFINISHED project, .sql file not available yet
+2.
+composer install
+
+3.
+Renommer yourConfig.php en config.php, remplir avec vos données
+
+4. 
+Importer le fichier bdd.sql dans phpmyadmin
