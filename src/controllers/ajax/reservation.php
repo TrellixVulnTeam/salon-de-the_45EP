@@ -5,18 +5,19 @@ $data           = array(); // tableau des messages
 
 */
 $issues = FALSE;
-$message = htmlspecialchars($_POST['message']);
+$text = htmlspecialchars($_POST['message']);
 $email = htmlspecialchars($_POST['email']);
 $quantity = htmlspecialchars($_POST['quantity']);
 $the = htmlspecialchars($_POST['theselected']);
-//$spam = htmlspecialchars($_POST['name']);
-
+$spam = htmlspecialchars($_POST['name']);
+/*
 $to = 'simatovic.lucie@gmail.com';
-//echo json_encode($email);
-
-
-$headers = 'From: ' . $email . "\r\n" . 'Reply-To: ' . $email . "\r\n" . 'X-Mailer: PHP/' . phpversion();
-$spamwords = array("mastecard", "paypal", "deal", "identité");
+$subject = $email;
+//$mailBody = 'Une reservation demandée:' . $the . 'x' . $quantity . '+' . $message;
+$message = $text;
+$headers = 'From: ' . $email . '+' . 'Reply-To: ' . $email . '+' . 'X-Mailer: PHP/' . phpversion();
+*/
+$spamwords = array('mastecard', 'paypal', 'deal', 'identité');
 
 
 // valide le remplissage des champs, sinon message d'erreur ======================================================
@@ -32,13 +33,13 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo "email non valide";
 }
 
-if (empty($message)) {
+if (empty($text)) {
     $issues = TRUE;
     echo "message vide";
 }
 
 
-$tableau = explode(' ', $message);
+$tableau = explode(' ', $text);
 foreach ($tableau as $mot) {
     if (in_array($mot, $spamwords)) {
         $issues = TRUE;
@@ -58,19 +59,21 @@ if (!empty($spam)) {
 if ($issues !== TRUE) {
     //on envoie notre email en toute sécurité (presque)
 
-    $to      = "simatovic.lucie@gmail.com";
-    $subject = $email;
-    $message = "Vous avez une nouvelle réservation du thé:" + $the + "(QUANTITÉ:" + $quantity + "). Avec le message:" + $message;
-    $headers = "Réservation de thé";
     // On envoie le mail et on stocke le résultat
+    $to      = 'simatovic.lucie@gmail.com';
+    $subject = 'Réservation de thé';
+    $message = 'Une réservation demandée:' . $the . ' x ' . $quantity . '. Avec le message' . $text;
+    $headers = 'From:' . $email . "\r\n" .
+        'Reply-To: ' . $email . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
 
     $send = mail($to, $subject, $message, $headers);
-    if (!$send) {
-        $errorMessage = error_get_last()['message'];
-        echo json_encode(
-            $errorMessage
-        );
-    }
+    //if (!$send) {
+    //// $errorMessage = error_get_last()['message'];
+    // echo json_encode(
+    //     $errorMessage
+    //  );
+    // }
     // $send = mail($to, $subject, $message, $headers);
     // Le contenu sera renvoyé au format JSON
     header('Content-Type: application/json');
