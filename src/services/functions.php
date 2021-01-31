@@ -148,6 +148,14 @@ function userSessionRegister(int $id, string $email, string $name)
     ];
 }
 
+function formatDate(string $date)
+{
+    return date('d/m/Y', strtotime($date));
+}
+function formatHour(string $hour)
+{
+    return date('G:i',strtotime($hour));
+}
 function asset(string $asset)
 {
     return BASE_URL . '/' . $asset;
