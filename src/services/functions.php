@@ -156,7 +156,12 @@ function formatHour(string $hour)
 {
     return date('G:i',strtotime($hour));
 }
-function asset(string $asset)
+
+
+function logout()
 {
-    return BASE_URL . '/' . $asset;
+    if (isAuthenticated()) {
+        $_SESSION['user'] = []; // ou unset($_SESSION['user'])
+        session_destroy();
+    }
 }

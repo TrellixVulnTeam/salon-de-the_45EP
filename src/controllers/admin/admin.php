@@ -7,8 +7,6 @@ if (!isAuthenticated()) {
 }
 
 render('admin/admin', [
-    'posts' => (new \App\Models\TeaModel())->getAllPosts(),
-    'news' => (new \App\Models\NewsModel())->getAllNews(),
-    'games' => (new \App\Models\GameModel())->getAllGames(),
+    'requests' => (new \App\Models\RequestModel())->getAllRequests(),
     'successMessages' => fetchFlashMessages()
 ]);

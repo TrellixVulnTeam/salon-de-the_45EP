@@ -1,14 +1,12 @@
 <?php 
 
-
 // Initialisation des variables que l'on souhaite transmettre au template
 $email = null;
 $error = null;
 
 // Si le formulaire a été soumis
 if (!empty($_POST)) {
-echo $_POST['email'];
-echo $_POST['password'];
+
     $email = $_POST['email'];
     $password = $_POST['password'];
 
@@ -22,7 +20,7 @@ echo $_POST['password'];
         if (password_verify($password, $user['password'])) {
 
             // Enregistrement de l'utilisateur en session pour le connecter
-            userSessionRegister($user['id'], $user['email'], $user['name']);
+            userSessionRegister($user['id'], $user['email'], $user['firstname'], $user['lastname']);
 
             header('Location: ' . buildUrl('/admin'));
             exit;

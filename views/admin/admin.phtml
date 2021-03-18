@@ -1,184 +1,41 @@
-<div class="admin-page">
-    <header>
-        <h2 class="admin-main-title">Administration</h2>
-    </header>
-    <!-- ADMINISTRATION DES THÉS -->
-    <section id="the-admin">
-        <h3 class="admin-second-title">Administration des thés</h3>
-        <nav>
-            <a href="<?= buildUrl('/admin/tea/new'); ?>" title="Ajouter un thé">
-                <svg class="admin-page__svg">
-                    <use xlink:href="img/sprite.svg#icon-plus1"></use>
+<header>
+    <h2>Administration</h2>
+</header>
+<section>
+    <!-- On mettra ici un tableau avec la liste des articles -->
 
-                </svg>
-            </a>
-            <p>Ajouter un thé</p>
+    <!-- Affichage le cas échéant des messages de confirmation -->
+    <?php include VIEWS_DIR . '/inc/flash_messages.phtml'; ?>
 
-        </nav>
-        <!-- Affichage le cas échéant des messages de confirmation -->
-        <?php include VIEWS_DIR . '/inc/flash_messages.phtml'; ?>
+    <table>
+        <thead>
+            <th scope="col">identifiant</th>
+            <th scope="col">status</th>
+            <th scope="col">Sujet</th>
+            <th scope="col">Crée le</th>
+            <th scope="col">Nom prénom</th>
+            <th scope="col">message</th>
+        </thead>
+        <tbody>
+            <?php foreach ($requests as $request) : ?>
+                <tr>
+                    <td><?= htmlspecialchars(formatDate($request['id_request'])); ?></td>
+                    <td><?= htmlspecialchars($request['firstname']) . " " .  htmlspecialchars($request['lastname']); ?></td>
+                    <td><?= htmlspecialchars($request['subject_label']); ?></td>
+                    <td><?= htmlspecialchars($request['createdAt']); ?></td>
+                    <td><?= htmlspecialchars($request['firstname']); ?></td>
 
-        <table class="scroll-table">
-            <thead class="scroll-table__head">
-
-                <th scope="col">Titre</th>
-                <th scope="col">Type</th>
-                <th scope="col">Actions</th>
-            </thead>
-
-            <tbody class="scroll-table__body">
-                <?php foreach ($posts as $post) : ?>
-                    <tr class="scroll-table__row">
-
-                        <td><?= htmlspecialchars($post['name']); ?></td>
-                        <td><?= htmlspecialchars($post['color']); ?></td>
-                        <td>
-                            <!--    <a href="<?= buildUrl('/admin/post/edit', ['postid' => $post['postid']]); ?>" title="Modifier l'article">
-                        <img src="https://img.icons8.com/fluent/48/000000/pen.png"/>
+                    <td><?= htmlspecialchars(mb_substr($request['content'], 0, 150, 'UTF-8')); ?></td>
+                    <td>
+                        <a href="<?= buildUrl('/admin/request/edit', ['id_request' => $request['id_request']]); ?>" title="Modifier l'article">
+                            <i class="fas fa-pen-square"></i>
                         </a>
--->
-                            <a href="#tea<?= htmlspecialchars($post['teaid']); ?>" title="Supprimer l'article">
-                                <svg class="admin-page__svg">
-                                    <use xlink:href="img/sprite.svg#icon-cancel"></use>
-                                </svg>
-                            </a>
-
-                        </td>
-                    </tr>
-                    <!-- popup thé -->
-                    <div class="popup" id="tea<?= htmlspecialchars($post['teaid']); ?>">
-                        <div class="popup__content">
-
-                            <div class="popup__right">
-
-                                <a href="#the-admin" class="popup__close">non</a>
-                                <h2 class="heading-secondary">Suppression d'un article</h2>
-                                <h3 class="heading-tertiary">Etes vous sûr de vouloir supprimer cet article ?</h3>
-                                <p class="popup__text">
-                                    <?= htmlspecialchars($post['name']); ?>
-                                </p>
-                                <a href="<?= buildUrl('/admin/tea/delete', ['postid' => $post['postid']]); ?>" class="popup__yes">oui</a>
-
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-
-            </tbody>
-
-        </table>
-
-    </section>
-    <!-- ADMINISTRATION DES ACTUALITÉS -->
-    <section id="news-admin">
-        <h3 class="admin-second-title">Administration des actualités</h3>
-        <nav>
-            <a href="<?= buildUrl('/admin/post/new'); ?>" title="Ajouter une news">
-                <svg class="admin-page__svg">
-                    <use xlink:href="img/sprite.svg#icon-plus1"></use>
-
-                </svg>
-            </a>
-            <p>Ajouter une news</p>
-
-        </nav>
-
-
-        <table class="scroll-table">
-            <thead class="scroll-table__head">
-                <th scope="col">Titre</th>
-                <th scope="col">Type</th>
-                <th scope="col">Actions</th>
-            </thead>
-            <tbody class="scroll-table__body">
-                <?php foreach ($news as $new) : ?>
-                    <tr class="scroll-table__row">
-                        <td><?= htmlspecialchars($new['title']); ?></td>
-                        <td><?= htmlspecialchars($new['name']); ?></td>
-                        <td>
-                            <a href="#news<?= htmlspecialchars($new['newsid']); ?>" title="Supprimer l'article">
-                                <svg class="admin-page__svg">
-                                    <use xlink:href="img/sprite.svg#icon-cancel"></use>
-                                </svg>
-                            </a>
-                        </td>
-                    </tr>
-                    <!-- popup news -->
-                    <div class="popup" id="news<?= htmlspecialchars($new['newsid']); ?>">
-                        <div class="popup__content">
-
-                            <div class="popup__right">
-
-                                <a href="#the-admin" class="popup__close">non</a>
-                                <h2 class="heading-secondary">Suppression d'un article</h2>
-                                <h6 class="heading-tertiary">Etes vous sûr de vouloir supprimer cet article ?</h6>
-                                <p class="popup__text">
-                                    <?= htmlspecialchars($new['title']); ?>
-                                </p>
-                                <a href="<?= buildUrl('/admin/post/delete', ['newsid' => $new['newsid']]); ?>" class="popup__yes">oui</a>
-
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </section>
-    <!-- ADMINISTRATION DES JEUX -->
-    <section id="games-admin">
-        <h3 class="admin-second-title">Administration des jeux</h3>
-        <nav>
-            <a href="<?= buildUrl('/admin/game/new'); ?>" title="Ajouter un jeu">
-                <svg class="admin-page__svg">
-                    <use xlink:href="img/sprite.svg#icon-plus1"></use>
-
-                </svg>
-            </a>
-            <p>Ajouter un jeu</p>
-        </nav>
-
-
-        <table class="scroll-table">
-            <thead class="scroll-table__head">
-
-                <th scope="col">Titre</th>
-                <th scope="col">Actions</th>
-            </thead>
-            <tbody class="scroll-table__body">
-                <?php foreach ($games as $game) : ?>
-                    <tr class="scroll-table__row">
-                        <td><?= htmlspecialchars($game['name']); ?></td>
-                        <td>
-
-                            <a href="#jeu<?= htmlspecialchars($game['id']); ?>" title="Supprimer l'article">
-                                <svg class="admin-page__svg">
-                                    <use xlink:href="img/sprite.svg#icon-cancel"></use>
-
-                                </svg>
-                            </a>
-                        </td>
-                    </tr>
-
-                    <!-- popup jeu -->
-                    <div class="popup" id="jeu<?= htmlspecialchars($game['id']); ?>">
-                        <div class="popup__content">
-
-                            <div class="popup__right">
-
-                                <a href="#the-admin" class="popup__close">non</a>
-                                <h2 class="heading-secondary">Suppression d'un article</h2>
-                                <h3 class="heading-tertiary">Etes vous sûr de vouloir supprimer cet article ?</h3>
-                                <p class="popup__text">
-                                    <?= htmlspecialchars($game['name']); ?>
-                                </p>
-                                <a href="<?= buildUrl('/admin/game/delete', ['id' => $game['id']]); ?>" class="popup__yes">oui</a>
-
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </section>
-
-</div>
+                        <a href="<?= buildUrl('/admin/request/delete', ['id_request' => $request['id_request']]); ?>" title="Supprimer l'article">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</section>
